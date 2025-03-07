@@ -7,6 +7,8 @@ import {
   Sun,
   Moon,
   Linkedin,
+  Menu,
+  X,
 } from "lucide-react";
 import TypingAnimation from "./components/TypingAnimation";
 import "./App.css";
@@ -65,14 +67,41 @@ const SkillsSection = ({ skills }) => {
       data-aos-delay="200"
     >
       <h3>Skills & Technologies</h3>
-      <div className="skills-grid">
-        {skills.map((skill, index) => (
-          <SkillBadge
-            key={skill}
-            skill={skill}
-            delay={index * 50} // Staggered animation
-          />
-        ))}
+
+      <div className="skills-category">
+        <h4>Frontend</h4>
+        <div className="skills-grid">
+          {skills.frontend.map((skill, index) => (
+            <SkillBadge key={skill} skill={skill} delay={index * 50} />
+          ))}
+        </div>
+      </div>
+
+      <div className="skills-category">
+        <h4>Backend</h4>
+        <div className="skills-grid">
+          {skills.backend.map((skill, index) => (
+            <SkillBadge key={skill} skill={skill} delay={index * 50} />
+          ))}
+        </div>
+      </div>
+
+      <div className="skills-category">
+        <h4>Database & Tools</h4>
+        <div className="skills-grid">
+          {skills.database.map((skill, index) => (
+            <SkillBadge key={skill} skill={skill} delay={index * 50} />
+          ))}
+        </div>
+      </div>
+
+      <div className="skills-category">
+        <h4>Other Skills</h4>
+        <div className="skills-grid">
+          {skills.other.map((skill, index) => (
+            <SkillBadge key={skill} skill={skill} delay={index * 50} />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -90,18 +119,47 @@ const EducationSection = () => {
     <div className="education-section">
       <h3>Education</h3>
       <div className="timeline">
-        <div className="timeline-item" data-aos="fade-up" data-aos-duration="1000">
+        <div
+          className="timeline-item"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
           <div className="timeline-content">
             <h4 className="institution">University of Zurich</h4>
-            <p className="degree">MA in Computational Linguistics and Language Technology</p>
-            <p className="year">2022 - Present</p>
+            <p className="degree">
+              MA in Computational Linguistics and Language Technology
+            </p>
+            <p className="year">Sep 2022 - Present</p>
+            <p className="location">Zurich, Switzerland</p>
+            <div className="courses">
+              <p className="courses-title">Key Courses:</p>
+              <ul className="courses-list">
+                <li>Data Structures and Algorithms</li>
+                <li>Software Engineering</li>
+                <li>Computer Networks and Distributed Systems</li>
+                <li>Large Language Models</li>
+                <li>Fundamentals of Software Systems</li>
+                <li>Foundations of Data Science</li>
+                <li>Software Construction</li>
+                <li>Software Engineering Lab</li>
+                <li>Advanced Techniques of Machine Translation</li>
+              </ul>
+            </div>
           </div>
         </div>
-        <div className="timeline-item" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+        <div
+          className="timeline-item"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="200"
+        >
           <div className="timeline-content">
-            <h4 className="institution">Huazhong University of Science and Technology</h4>
+            <h4 className="institution">
+              Huazhong University of Science and Technology
+            </h4>
             <p className="degree">BEng in Material Science and Engineering</p>
-            <p className="year">2018 - 2022</p>
+            <p className="year">Sep 2018 - Jun 2022</p>
+            <p className="location">Wuhan, China</p>
           </div>
         </div>
       </div>
@@ -114,19 +172,32 @@ const ExperienceSection = () => {
   return (
     <div className="experience-section">
       <div className="timeline">
-        <div className="timeline-item" data-aos="fade-up" data-aos-duration="1000">
+        <div
+          className="timeline-item"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
           <div className="timeline-content">
             <h4 className="institution">Sister Global</h4>
             <p className="degree">Software Engineer Intern</p>
             <p className="year">Sep 2024 - Nov 2024</p>
+            <p className="location">Remote</p>
           </div>
         </div>
 
-        <div className="timeline-item" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+        <div
+          className="timeline-item"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="200"
+        >
           <div className="timeline-content">
             <h4 className="institution">Hong Kong Baptist University</h4>
-            <p className="degree">Research Assistant in Social Network Analysis</p>
-            <p className="year">May 2022 - Feb 2022</p>
+            <p className="degree">
+              Research Assistant in Social Network Analysis
+            </p>
+            <p className="year">May 2021 - Feb 2022</p>
+            <p className="location">Remote</p>
           </div>
         </div>
       </div>
@@ -145,6 +216,7 @@ const HomePage = () => {
     }
     return false;
   });
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -185,7 +257,15 @@ const HomePage = () => {
   const scrollTo = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      const navHeight = 80;
+      // Get the computed scroll padding from CSS variable
+      const computedStyle = getComputedStyle(document.documentElement);
+
+      // Use different padding values for home vs other sections
+      const navHeight =
+        id === "home"
+          ? parseInt(computedStyle.getPropertyValue("--scroll-padding-home"))
+          : parseInt(computedStyle.getPropertyValue("--scroll-padding-other"));
+
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset;
 
@@ -197,6 +277,7 @@ const HomePage = () => {
       });
 
       setActiveSection(id);
+      setMenuOpen(false); // Close menu after navigation
     }
   };
 
@@ -204,18 +285,17 @@ const HomePage = () => {
     setDarkMode(!darkMode);
   };
 
-  // Add skills array
-  const skills = [
-    "Java & Spring Boot",
-    "Python & Djando",
-    "React & Vue & JavaScript & TypeScript",
-    "Node & Express",
-    "Docker",
-    "Databases",
-    "SQL",
-    "MongoDB",
-    "PostgreSQL",
-  ];
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  // Updated skills object with categories
+  const skills = {
+    frontend: ["React", "Vue", "JavaScript", "TypeScript", "HTML/CSS"],
+    backend: ["Java", "Spring Boot", "Python", "Django", "Node.js", "Express"],
+    database: ["MongoDB", "PostgreSQL", "MySQL", "Redis", "Docker", "Git"],
+    other: ["Data Analysis", "Machine Translation", "Large Language Models"],
+  };
 
   return (
     <div className={`page ${darkMode ? "dark" : ""}`}>
@@ -230,7 +310,15 @@ const HomePage = () => {
               {darkMode ? <Sun className="icon" /> : <Moon className="icon" />}
             </button>
 
-            <ul>
+            <button
+              className="mobile-menu-toggle"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? <X className="icon" /> : <Menu className="icon" />}
+            </button>
+
+            <ul className={menuOpen ? "open" : ""}>
               {["home", "about", "experience", "projects"].map((section) => (
                 <li key={section}>
                   <button

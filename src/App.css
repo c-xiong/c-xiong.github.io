@@ -7,11 +7,15 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--scroll-padding);
 }
 
 /* Base font size adjustments */
 :root {
   font-size: 16px;  /* Base size for mobile */
+  --scroll-padding: 80px;  /* Default scroll padding matching header height */
+  --scroll-padding-home: 80px;  /* Specific for home section */
+  --scroll-padding-other: 20px;  /* Further reduced padding for other sections */
 }
 
 @media screen and (min-width: 768px) {
@@ -23,6 +27,9 @@ html {
 @media screen and (min-width: 1024px) {
   :root {
     font-size: 18px;  /* Larger for desktop */
+    --scroll-padding: 100px;  /* Default scroll padding */
+    --scroll-padding-home: 100px;  /* Specific for home section */
+    --scroll-padding-other: 50px;  /* Reduced padding for other sections */
   }
 }
 
@@ -31,7 +38,7 @@ body {
   padding: 0;
   width: 100%;
   font-family: "Source Sans Pro", "Inter", -apple-system, sans-serif;
-  background-color: white;
+  background-color: #f8f9fa;
   color: #2d3748;
   line-height: 1.7;
   font-size: 1.125rem;  /* 18px on mobile, scales up with viewport */
@@ -45,7 +52,7 @@ header {
   left: 0;
   right: 0;
   z-index: 50;
-  background-color: white;
+  background-color: #ffffff;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   height: 80px;
   border-bottom: 1px solid #f0f0f0;
@@ -84,9 +91,6 @@ nav button:hover {
 }
 
 /* Main content */
-main {
-  padding-top: 30px;
-}
 
 /* Home section */
 #home {
@@ -94,7 +98,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px 0;
+  padding: 10px 0;
 }
 
 .profile-image {
@@ -110,7 +114,7 @@ main {
 #projects {
   min-height: 100vh;
   padding: 96px 0;
-  background-color: #fafafa;
+  background-color: #f0f2f5;
 }
 
 .dark #projects {
@@ -134,7 +138,7 @@ main {
 
 /* Project Cards */
 .project-card {
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid #edf2f7;
@@ -298,9 +302,9 @@ a:hover {
 
 /* Icons */
 .icon {
-  width: 35px;
-  height: 28px;
-  margin-right: 8px;
+  width: 30px;
+  height: 30px;
+  margin: 8px;
 }
 
 /* Animations */
@@ -320,7 +324,7 @@ a:hover {
 
 /* Layout utilities */
 .container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: clamp(1rem, 5vw, 2rem);
 }
@@ -385,7 +389,7 @@ a:hover {
 
 .page {
   min-height: 100vh;
-  background-color: white;
+  background-color: #f8f9fa;
   color: #1a1a1a;
 }
 
@@ -754,13 +758,13 @@ a:hover {
 }
 
 .skill-badge {
-  font-size: 1rem;  /* 16px, scales with root */
+  font-size: 1rem;
   font-family: "Source Sans Pro", "Inter", sans-serif;
   font-weight: 500;
-  background-color: #f8fafc;
+  background-color: #ffffff;
   color: #2d3748;
   border: 1px solid #e2e8f0;
-  padding: 0.625rem 1.25rem;  /* Larger padding for better touch targets */
+  padding: 0.625rem 1.25rem;
   border-radius: 4px;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -780,7 +784,20 @@ a:hover {
 .dark .skill-badge:hover {
   background-color: #374151;
 }
+.skills-category {
+  margin-bottom: 2rem;
+}
 
+.skills-category h4 {
+  font-size: 1.2rem;
+  color: #4a5568;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.dark .skills-category h4 {
+  color: #e2e8f0;
+}
 /* Profile section improvements */
 .profile-section {
   display: flex;
@@ -1406,6 +1423,7 @@ section h2,
   position: relative;
   padding-bottom: 0.75rem;
   font-family: "Source Serif Pro", serif;
+  margin-top: 0; /* Ensure no top margin */
 }
 
 .dark section h2,
@@ -1414,23 +1432,33 @@ section h2,
   color: #f7fafc;
 }
 
-section h2::after,
-.skills-section h3::after,
-.education-section h3::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background-color: #8B5CF6;
-  border-radius: 3px;
+/* Ensure all sections have consistent top padding */
+#about, #experience, #projects {
+  padding-top: 3rem;
 }
 
-.dark section h2::after,
-.dark .skills-section h3::after,
-.dark .education-section h3::after {
-  background-color: #A78BFA;
+/* Ensure all section containers have consistent padding */
+#about .container, 
+#experience .container, 
+#projects .container {
+  padding-top: 0;
+}
+
+/* Ensure the home-grid in about section doesn't add extra spacing */
+.home-grid {
+  margin-top: 0;
+}
+
+/* Adjust the skills and education sections to not have extra top margin */
+.skills-section,
+.education-section {
+  margin-top: 0;
+}
+
+/* Ensure section h2 elements are positioned consistently */
+section h2 {
+  margin-top: 0;
+  margin-bottom: 2rem;
 }
 
 /* Center-aligned section headers */
@@ -1464,6 +1492,164 @@ section h2::after,
   .education-section h3::after {
     left: 50%;
     transform: translateX(-50%);
+  }
+}
+
+/* Add alternating section background colors */
+section {
+  transition: background-color 0.3s ease;
+}
+
+/* Light mode alternating colors */
+section:nth-child(odd) {
+  background-color: #f8f9fa;  /* Slightly off-white, your current color */
+}
+
+section:nth-child(even) {
+  background-color: #f0f2f5;  /* Light gray, like your current projects section */
+}
+
+/* Dark mode alternating colors */
+.dark section:nth-child(odd) {
+  background-color: #1a202c;  /* Dark blue-gray, your current dark mode color */
+}
+
+.dark section:nth-child(even) {
+  background-color: #171923;  /* Slightly darker than the odd sections */
+}
+
+/* Adjust section and container padding */
+section {
+  padding: 6rem 0;  /* Consistent padding for all sections */
+}
+
+/* Specific adjustments for non-home sections */
+#about, #experience, #projects {
+  padding-top: 3rem;  /* Reduced top padding for these sections */
+}
+
+/* Adjust container padding */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(1rem, 5vw, 2rem);
+}
+
+/* Specific container adjustments for section titles */
+#about .container, #experience .container, #projects .container {
+  padding-top: 0;  /* Remove top padding from containers in these sections */
+}
+
+/* Adjust section headers to be closer to the top */
+#about h2, #experience h2, #projects h2 {
+  margin-top: 0;  /* Remove top margin from section headers */
+  margin-bottom: 2rem;  /* Keep bottom margin for spacing from content */
+}
+
+/* Mobile Navigation */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 60;
+}
+
+.mobile-menu-toggle .icon {
+  width: 24px;
+  height: 24px;
+  color: #4a5568;
+  margin: 0;
+}
+
+.dark .mobile-menu-toggle .icon {
+  color: #9ca3af;
+}
+
+/* Mobile menu styles */
+@media screen and (max-width: 768px) {
+  .nav-container {
+    justify-content: space-between;
+  }
+  
+  .mobile-menu-toggle {
+    display: flex;
+  }
+  
+  nav ul {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 55;
+  }
+  
+  .dark nav ul {
+    background-color: #1f2937;
+  }
+  
+  nav ul.open {
+    transform: translateX(0);
+  }
+  
+  nav button {
+    font-size: 1.5rem;
+  }
+  
+  /* Hide the nav spacer on mobile */
+  .nav-spacer {
+    display: none;
+  }
+}
+
+/* Courses styling */
+.courses {
+  margin-top: 0.75rem;
+}
+
+.courses-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
+.dark .courses-title {
+  color: #a0aec0;
+}
+
+.courses-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.courses-list li {
+  font-size: 0.9rem;
+  color: #718096;
+  margin-bottom: 0.25rem;
+  width: calc(50% - 0.5rem);
+}
+
+.dark .courses-list li {
+  color: #cbd5e0;
+}
+
+/* Make courses list single column on mobile */
+@media (max-width: 768px) {
+  .courses-list li {
+    width: 100%;
   }
 }
 

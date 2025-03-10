@@ -98,7 +98,7 @@ nav button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 0;
+  padding: 50px 0;
 }
 
 .profile-image {
@@ -117,9 +117,6 @@ nav button:hover {
   background-color: #f0f2f5;
 }
 
-.dark #projects {
-  background-color: #1a202c;
-}
 
 .projects-grid {
   display: grid;
@@ -403,11 +400,11 @@ a:hover {
 
 .theme-toggle {
   padding: 8px;
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 8px;
-  background-color: #f3f4f6;
-  border: 1px solid #e5e7eb;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -417,19 +414,22 @@ a:hover {
 
 .theme-toggle .icon {
   margin: 0;  /* Override the default icon margin */
+  width: 24px;
+  height: 24px;
 }
 
 .theme-toggle:hover {
-  background-color: #e5e7eb;
+  background-color: rgba(229, 231, 235, 0.5);
+  transform: scale(1.1);
 }
 
 .dark .theme-toggle {
-  background-color: #374151;
-  border-color: #4b5563;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .dark .theme-toggle:hover {
-  background-color: #4b5563;
+  background-color: rgba(75, 85, 99, 0.5);
 }
 
 /* Add this new class */
@@ -1335,15 +1335,6 @@ button:focus {
   color: #e5e7eb;
 }
 
-/* Update dark mode styles for home section */
-.dark #home {
-  background-color: #1a202c;
-}
-
-/* Update dark mode styles for about section */
-.dark #about {
-  background-color: #1a202c;
-}
 
 /* Update dark mode styles for headings in these sections */
 .dark #home h1,
@@ -1368,10 +1359,6 @@ button:focus {
   background-color: #A78BFA;
 }
 
-/* Experience section dark mode styles */
-.dark #experience {
-  background-color: #1a202c;
-}
 
 .dark #experience h2 {
   color: #f3f4f6;
@@ -1509,13 +1496,13 @@ section:nth-child(even) {
   background-color: #f0f2f5;  /* Light gray, like your current projects section */
 }
 
-/* Dark mode alternating colors */
+/* Dark mode alternating colors with stronger contrast */
 .dark section:nth-child(odd) {
-  background-color: #1a202c;  /* Dark blue-gray, your current dark mode color */
+  background-color: #1a202c;  /* Your current dark mode color */
 }
 
 .dark section:nth-child(even) {
-  background-color: #171923;  /* Slightly darker than the odd sections */
+  background-color: #111827;  /* More distinct darker shade */
 }
 
 /* Adjust section and container padding */
@@ -1653,3 +1640,13 @@ section {
   }
 }
 
+
+/* Simplified dark mode section background colors */
+.dark #home,
+.dark #experience {
+  background-color: #151a25;  /* Single consistent dark color for all sections */
+}
+.dark #about, 
+.dark #projects {
+  background-color: #191e29;
+}

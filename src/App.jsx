@@ -209,10 +209,13 @@ const HomePage = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
-      return (
-        localStorage.getItem("darkMode") === "true" ||
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      );
+      // First check if there's a stored preference
+      const storedPreference = localStorage.getItem("darkMode");
+      if (storedPreference !== null) {
+        return storedPreference === "true";
+      }
+      // If no stored preference, use system preference
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
     }
     return false;
   });
